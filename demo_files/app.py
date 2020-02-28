@@ -24,6 +24,8 @@ def get_args():
     i_desc = "The location of the input image"
     m_desc = "The location of the model XML file"
     t_desc = "The type of model: POSE, TEXT, CAR_META or EMO"
+    #Add name argument
+    n_desc = "Additional text to file name"
 
     # -- Add required and optional groups
     parser._action_groups.pop()
@@ -36,6 +38,8 @@ def get_args():
     required.add_argument("-t", help=t_desc, required=True)
     optional.add_argument("-c", help=c_desc, default=None)
     optional.add_argument("-d", help=d_desc, default="CPU")
+    #Add name argument
+    optional.add_argument("-n", help=n_desc, default=None)
     args = parser.parse_args()
 
     return args
@@ -143,7 +147,7 @@ def perform_inference(args):
     except:
         print("failure")
     # Save down the resulting image
-    cv2.imwrite("outputs/{}-output.png".format(args.t), output_image)
+    cv2.imwrite("outputs/{}-output-{}.png".format(args.t,args.n), output_image)
 
 
 def main():
