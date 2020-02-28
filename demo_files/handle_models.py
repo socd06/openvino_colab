@@ -62,7 +62,7 @@ def handle_emo(output, input_shape):
     Returns one integer: the argmax of the softmax output.
     The emotion recognized.
     '''
-    emotion = output['prob'].flatten()    
+    emotion = output['prob_emotion'].flatten()    
     
     # TODO 1: Get the argmax of the "emotion" output
     emotion_class = np.argmax(emotion)        

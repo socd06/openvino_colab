@@ -94,11 +94,12 @@ def create_output_image(model_type, image, output):
         return image
     elif model_type == "EMO":        
         emotion = EMO_REC[output]
+        print(emotion)
         # Scale the output text by the image shape
         scaler = max(int(image.shape[0] / 1000), 1)
         # Write the text of emotion recognized onto the image
         image = cv2.putText(image,
-            "Emotion: {}, Type: {}".format(emotion),
+            "{}".format(emotion),
             (50 * scaler, 100 * scaler), cv2.FONT_HERSHEY_SIMPLEX,
             2 * scaler, (255, 255, 255), 3 * scaler)
         return image
