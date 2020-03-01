@@ -3,10 +3,10 @@ Intel OpenVINO AI framework examples using Google Colab.
 
 Originally based on [OpenDevLibrary](https://github.com/alihussainia/OpenDevLibrary) from [Alihussainia](https://github.com/alihussainia/)
 
-# demo
+# demo.ipynb
 Notebook showing how to integrate OpenVINO with Google Colab
 
-# emotions
+# emotions.ipynb
 Emotions classifier using OpenVINO in Google Colab
 
 ## License
