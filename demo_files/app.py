@@ -5,6 +5,7 @@ import numpy as np
 from handle_models import handle_output, preprocessing
 from inference import Network
 
+CPU_EXTENSION = "/opt/intel/openvino/deployment_tools/inference_engine/lib/intel64/libcpu_extension_sse4.so"
 
 CAR_COLORS = ["white", "gray", "yellow", "red", "green", "blue", "black"]
 CAR_TYPES = ["car", "bus", "truck", "van"]
@@ -24,8 +25,11 @@ def get_args():
     i_desc = "The location of the input image"
     m_desc = "The location of the model XML file"
     t_desc = "The type of model: POSE, TEXT, CAR_META or EMO"
+
     #Add name argument
     n_desc = "Additional text to file name"
+    cl_desc = "Color of the bounding boxes (RED, GREEN or BLUE)"
+    cn_desc = "The confidence threshold"        
 
     # -- Add required and optional groups
     parser._action_groups.pop()
@@ -33,7 +37,7 @@ def get_args():
     optional = parser.add_argument_group('optional arguments')
 
     # -- Create the arguments
-    required.add_argument("-i", help=i_desc, required=True)
+    optional.add_argument("-i", help=i_desc, default=INPUT_STREAM)
     required.add_argument("-m", help=m_desc, required=True)
     required.add_argument("-t", help=t_desc, required=True)
     optional.add_argument("-c", help=c_desc, default='BLUE')
@@ -239,8 +243,8 @@ def infer_on_video(args):
 
 def main():
     args = get_args()
-    perform_inference(args) #On images
-    #infer_on_video(args) #On Video
+    #perform_inference(args) #On images
+    infer_on_video(args) #On Video
 
 
 if __name__ == "__main__":
