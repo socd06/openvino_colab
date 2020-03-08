@@ -41,16 +41,16 @@ class Network:
             self.plugin.add_extension(cpu_extension, device)
 
         # Read the IR as a IENetwork
-        self.network = IENetwork(model=model_xml, weights=model_bin)
+        network = IENetwork(model=model_xml, weights=model_bin)
 
         # Load the IENetwork into the plugin
-        self.exec_network = self.plugin.load_network(self.network, device)
+        self.exec_network = self.plugin.load_network(network, device)
 
         # Get the input layer
-        self.input_blob = next(iter(self.network.inputs))
-        self.output_blob = next(iter(self.network.outputs))
+        self.input_blob = next(iter(network.inputs))
 
-        return
+        # Return the input shape (to determine preprocessing)
+        return network.inputs[self.input_blob].shape
 
 
     def get_input_shape(self):
@@ -68,6 +68,20 @@ class Network:
             inputs={self.input_blob: image})
         return
 
+    def sync_inference(self, image):
+        '''
+        Makes a synchronous inference request, given an input image.
+        '''
+        self.exec_network.infer({self.input_blob: image})
+        return
+
+
+    def extract_output(self):
+        '''
+        Returns a list of the results for the output layer of the network.
+        '''
+        return self.exec_network.requests[0].outputs
+
 
     def wait(self):
         '''
@@ -77,7 +91,7 @@ class Network:
         return status
 
 
-    def extract_output(self):
+    def extract_output_video(self):
         '''
         Returns a list of the results for the output layer of the network.
         '''
