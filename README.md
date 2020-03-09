@@ -3,7 +3,7 @@ Intel OpenVINO AI framework examples using Google Colab.
 
 Loosely based on  [OpenDevLibrary](https://github.com/alihussainia/OpenDevLibrary) by [Alihussainia](https://github.com/alihussainia/)
 
-# interview_prep.ipynb
+# [interview_prep.ipynb](https://github.com/socd06/openvino_colab/blob/master/interview_prep.ipynb)
 Interview preparation app leveraging pre-trained OpenVINO models. 
 
 ## [Human Pose Estimation](https://docs.openvinotoolkit.org/2020.1/_models_intel_human_pose_estimation_0001_description_human_pose_estimation_0001.html)
@@ -23,6 +23,15 @@ Follow the steps on the [interview_prep.ipynb notebook](https://github.com/socd0
 
 ## Command Line Parameters
 Change the -m models parameter depending on the desired output 
+
+## Future Work
+- Make project able to infer on video/live camera
+- Adding an action recognition model
+- Implement UI
+
+## Future Vision
+100%
+![future](img/future.png)
 
 ## demo.ipynb
 Notebook showing how to integrate OpenVINO with Google Colab
