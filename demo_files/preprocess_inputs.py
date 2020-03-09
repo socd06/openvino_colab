@@ -1,7 +1,6 @@
 import cv2
 import numpy as np
 
-# My Code
 def preprocessing(input_image, height, width):
     '''
     Given an input image, height and width:

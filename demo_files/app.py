@@ -2,6 +2,7 @@ import argparse
 import cv2
 import numpy as np
 
+from preprocess_inputs import car_meta,pose_estimation,emotion
 from handle_models import handle_output, preprocessing
 from inference import Network
 
@@ -162,8 +163,23 @@ def perform_inference(args):
     ### TODO: Preprocess the input image
     preprocessed_image = preprocessing(image, h, w)
 
+    ### TODO: Process depending on model    
+
+    try:
+        print("Processing...")
+        print("Selected",args.t,"Model")
+        if args.t == "CAR_META":                        
+            processed_image = car_meta(image)
+        if args.t == "POSE":            
+            processed_image = pose_estimation(image)
+        if args.t == "EMO":            
+            processed_image = emotion(image)
+        # Original
+        # preprocessed_image = preprocessing(image, h, w) 
+    except:
+        print("Error processing model")
     # Perform synchronous inference on the image
-    inference_network.sync_inference(preprocessed_image)
+    inference_network.sync_inference(processed_image)
 
     # Obtain the output of the inference request
     output = inference_network.extract_output()
@@ -178,10 +194,11 @@ def perform_inference(args):
     # Create an output image based on network
     try:
         output_image = create_output_image(args.t, image, processed_output)
-        print("Success")
+        print("Success writing output")
     except:
-        print("failure")
+        print("Error writing output")
     # Save down the resulting image
+    print("Saving output...")
     cv2.imwrite("outputs/{}-output-{}.png".format(args.t,args.n), output_image)
 
 def main():
